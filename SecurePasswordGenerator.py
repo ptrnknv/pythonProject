@@ -2,6 +2,7 @@
 
 from random import choice, shuffle
 
+
 # Функция генерирующая пароли
 
 def generate_password(length, chars):
@@ -9,11 +10,7 @@ def generate_password(length, chars):
     i = 0
     count = 1
     while i <= length - count:
-        for j in range(len(chars) - amb):       # Удаляем ненужные символы
-            if amb == 1:
-                for c in chars[-1]:
-                    chars[j] = chars[j].replace(c, '')
-
+        for j in range(len(chars)):
             password += choice(chars[j])
             count += 1
 
@@ -21,6 +18,7 @@ def generate_password(length, chars):
     shuffle(password)
 
     return ''.join(password)
+
 
 # Строковые константы
 
@@ -36,11 +34,11 @@ chars = []    # Переменная chars = '' - содержит все сим
 
 amount_pass = int(input('Укажите количество паролей для генерации: '))
 len_pass = int(input('Укажите длину одного пароля: '))
-digit_pass = input('В пароле должны быть цифры?: ')
-low_case_pass = input('Включать строчные буквы?: ')
-up_case_pass = input('Включать прописные буквы? ')
-chs_pass = input('Вкючать символы: "!#$%&*+-=?@^_."? : ')
-ambchrs_pass = input('Искючать неоднозначные символы: "il1Lo0O"? : ')
+digit_pass = input('В пароле должны быть цифры?: y = "yes"; for "no" press any key ').strip()
+low_case_pass = input('Включать строчные буквы?: y = "yes"; for "no" press any key ').strip()
+up_case_pass = input('Включать прописные буквы? y = "yes"; for "no" press any key ').strip()
+chs_pass = input('Вкючать символы: "!#$%&*+-=?@^_."? : y = "yes"; for "no" press any key ').strip()
+ambchrs_pass = input('Искючать неоднозначные символы: "il1Lo0O"? : y = "yes"; for "no" press any key ').strip()
 
 # Добавляем необходимые символы
 
@@ -52,11 +50,10 @@ if up_case_pass == 'y':
     chars.append(UPPERCASE_LETTERS)
 if chs_pass == 'y':
     chars.append(PUNCTUATION)
-if ambchrs_pass == 'y':  # Добавляем символы, которые нужно исключить
-    amb = 1
-    chars.append(AMBIGUOUS)
-else:
-    amb = 0
+if ambchrs_pass == 'y':  # Удаляем ненужные символы
+    for i in range(len(chars) - 1):
+        for c in AMBIGUOUS:
+            chars[i] = chars[i].replace(c, '')
 
 passwords = []
 
