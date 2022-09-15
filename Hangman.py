@@ -187,20 +187,20 @@ def display_hangman(tries):
 def play(word):
 
     word = word.upper()
-    word_completion = '_' * len(word)  # строка, содержащая символы _ на каждую букву задуманного слова
-    guessed = False  # сигнальная метка
-    guessed_letters = []  # список уже названных букв
-    guessed_words = []  # список уже названных слов
-    tries = 6  # количество попыток
+    word_completion = '_' * len(word)       # строка, содержащая символы _ на каждую букву задуманного слова
+    guessed = False                         # сигнальная метка
+    guessed_letters = []                    # список уже названных букв
+    guessed_words = []                      # список уже названных слов
+    tries = 6                               # количество попыток
 
     print('Давайте играть в виселицу!')
     print(f'Вот загаданное слово: {word_completion}')
     print(f'Количество допустимых промахов: {tries}')
-    print(display_hangman(tries))
+    print(display_hangman(tries))           # Выводим висеицу
 
     while True:
 
-        if guessed:
+        if guessed:                          # Проверяем угадно слово или нет
             if tries > 0:
                 print('Поздравляю. Вы победили!!!')
             else:
@@ -213,20 +213,20 @@ def play(word):
 
         inp = input('Попробуйте угадать букву или слово целиком: ').strip().upper()
 
-        if inp.isalpha():
-            if len(inp) == 1:
-                if inp in guessed_letters:
+        if inp.isalpha():                       # Ппроверяем введённые данные
+            if len(inp) == 1:                   # Если буква
+                if inp in guessed_letters:      # Если буква в списке введённых
                     print('Эта буква уже вводилась')
                     continue
                 guessed_letters.append(inp)
-                if inp in word:
+                if inp in word:                 # Если буква есть в слове
                     for i in range(len(word)):
-                        if word[i] == inp:
-                            ind_in_word = i
-                            word_completion = word_completion[:ind_in_word] + inp + word_completion[ind_in_word + 1:]
+                        if word[i] == inp:      # Если буква в слове совпала с введённой
+                                                # Меняем символ _ на букву из слова
+                            word_completion = word_completion[:i] + inp + word_completion[i + 1:]
                     print('Вы угадали букву!')
-                    print(word_completion)
-                    if word_completion == word:
+                    print(word_completion)              # Выводим слово с заменёнными буквами
+                    if word_completion == word:         # Если это была последняя буква
                         guessed = True
                         continue
                 else:
@@ -234,17 +234,17 @@ def play(word):
                     print(display_hangman(tries))
                     print('Нет такой буквы')
                     print(f'Попыток осталось: {tries}')
-                    if tries == 0:
+                    if tries == 0:                   # Попыток больше не осталось
                         guessed = True
                         continue
                     else:
                         continue
             else:
-                if inp in guessed_words:
+                if inp in guessed_words:            # Введённое слова есть в списке
                     print('Эта слово уже вводилось')
                     continue
-                guessed_words.append(inp)
-                if inp == word:
+                guessed_words.append(inp)           # Если нет - добавляем
+                if inp == word:                     # Введённо слово = загаданному
                     word_completion = word
                     guessed = True
                     continue
@@ -263,4 +263,4 @@ def play(word):
             continue
 
 
-play(get_word())
+play(get_word())                                    # Инициализация игры
