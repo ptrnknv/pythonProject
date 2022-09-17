@@ -1,30 +1,15 @@
-t, r = input(), input()
-var = ['камень', 'бумага', 'Спок', 'ножницы', 'ящерица']
+s = 'ОООООООООО'
+count = 0
+res = 0
 
-if t == r:
-    print('ничья')
-elif t == 'камень':
-    if r in ['ножницы', 'ящерица']:
-        print('Тимур')
+for c in s:
+    if c == 'Р':
+        count += 1
+        if res < count:
+            res = count
     else:
-        print('Руслан')
-elif t == 'бумага':
-    if r in ['Спок', 'камень']:
-        print('Тимур')
-    else:
-        print('Руслан')
-elif t == 'Спок':
-    if r in ['ножницы', 'камень']:
-        print('Тимур')
-    else:
-        print('Руслан')
-elif t == 'ножницы':
-    if r in ['ящерица', 'бумага']:
-        print('Тимур')
-    else:
-        print('Руслан')
-elif t == 'ящерица':
-    if r in ['Спок', 'бумага']:
-        print('Тимур')
-    else:
-        print('Руслан')
+        count = 0
+
+print(res)
+
+
