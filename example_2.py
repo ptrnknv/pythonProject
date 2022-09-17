@@ -1,15 +1,25 @@
-s = 'ОООООООООО'
-count = 0
-res = 0
+# 6
+# 222anton456
+# a1n1t1o1n1
+# 0000a0000n00t00000o000000n
+# gylfole
+# richard
+# ant0n
 
-for c in s:
-    if c == 'Р':
-        count += 1
-        if res < count:
-            res = count
-    else:
-        count = 0
+n = int(input())
+lst = [input() for i in range(n)]
+res = []
+total = []
 
-print(res)
+for i in range(len(lst)):
+    search = ['a', 'n', 't', 'o', 'n']
+    for c in lst[i]:
+        if c == search[0]:
+            res.append(search.pop(0))
+        if not search:
+            total.append(i+1)
+            res = []
+            break
 
+print(*total)
 
