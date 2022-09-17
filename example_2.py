@@ -1,13 +1,6 @@
-# 8
-# 17
-# 33
-# 56
-# 70
-# 66
-# 50
-# 20
-# 38
-# 1400
+# 1
+# 6
+# 36
 n = int(input())
 lst = []
 for _ in range(n):
@@ -15,7 +8,8 @@ for _ in range(n):
 num = int(input())
 flag = False
 for i in range(len(lst)):
-    for j in lst[i:]:
+    for j in lst[i+1:]:
+        print(lst[i:])
         if lst[i] * j == num:
             flag = True
 
