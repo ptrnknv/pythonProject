@@ -1,7 +1,6 @@
-list = [2, 5, 7, 4, 3]
-target = 12
+n = '1 2 3 4 5'.split()
 
-for i in range(len(list)):
-    for j in range(i, len(list) - i):
-        if list[i] + list[j] == target:
-            print(i, j)
+for i in range(0, len(n) - 1, 2):
+        n[i], n[i+1] = n[i+1], n[i]
+
+print(*n)
