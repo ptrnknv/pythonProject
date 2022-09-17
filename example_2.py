@@ -1,25 +1,24 @@
-# 6
-# 222anton456
-# a1n1t1o1n1
-# 0000a0000n00t00000o000000n
-# gylfole
-# richard
-# ant0n
+s = 'тимур'
+strng = s + ' запретил букву'
+b = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
+     'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+count = 0
+has = ''
+alph = ''
 
-n = int(input())
-lst = [input() for i in range(n)]
-res = []
-total = []
+for j in range(len(strng)):
+    if strng[j] not in has:
+        has += strng[j]
+        count += 1
 
-for i in range(len(lst)):
-    search = ['a', 'n', 't', 'o', 'n']
-    for c in lst[i]:
-        if c == search[0]:
-            res.append(search.pop(0))
-        if not search:
-            total.append(i+1)
-            res = []
-            break
+for i in range(len(b)):
+    for c in has:
+        if b[i] == c:
+            alph += c
 
-print(*total)
+for i in range(count-1):
+    if strng[1:3] == '  ':
+        strng = strng[0:1] + strng[2:]
+    print(strng, alph[i])
+    strng = strng.replace(alph[i], '')
 
