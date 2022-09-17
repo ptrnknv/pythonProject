@@ -1,7 +1,9 @@
-n = '489 483 43 2 3 84 1 4 3 2 5 4 3 13'.split()
-last = [n.pop()]
-a = input().split()
+n = '5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 555	'.split()
+count = 1
 
-print(*[a[-1]] + a[:-1])
-print(n)
-print(last)
+for i in range(len(n) - 1):
+    if n[i] != n[i+1]:
+        count += 1
+
+
+print(count)
