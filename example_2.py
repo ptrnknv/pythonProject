@@ -1,19 +1,30 @@
-# 1
-# 6
-# 36
-n = int(input())
-lst = []
-for _ in range(n):
-    lst.append(int(input()))
-num = int(input())
-flag = False
-for i in range(len(lst)):
-    for j in lst[i+1:]:
-        print(lst[i:])
-        if lst[i] * j == num:
-            flag = True
+t, r = input(), input()
+var = ['камень', 'бумага', 'Спок', 'ножницы', 'ящерица']
 
-if flag:
-    print('ДА')
-else:
-    print('НЕТ')
+if t == r:
+    print('ничья')
+elif t == 'камень':
+    if r in ['ножницы', 'ящерица']:
+        print('Тимур')
+    else:
+        print('Руслан')
+elif t == 'бумага':
+    if r in ['Спок', 'камень']:
+        print('Тимур')
+    else:
+        print('Руслан')
+elif t == 'Спок':
+    if r in ['ножницы', 'камень']:
+        print('Тимур')
+    else:
+        print('Руслан')
+elif t == 'ножницы':
+    if r in ['ящерица', 'бумага']:
+        print('Тимур')
+    else:
+        print('Руслан')
+elif t == 'ящерица':
+    if r in ['Спок', 'бумага']:
+        print('Тимур')
+    else:
+        print('Руслан')
