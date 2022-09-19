@@ -1,6 +1,5 @@
 from math import factorial
 
-from math import factorial
 
 def pascal(n):
     list = []
@@ -9,6 +8,7 @@ def pascal(n):
         list.append(int(m))
 
     return list
+
 
 for i in range(int(input())):
     print(pascal(i))
