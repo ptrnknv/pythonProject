@@ -1,12 +1,10 @@
-s = 'f g g g d r t'.split()
-repeated = []
-lst = [s[0]]
+def chunked(s, n):
+  lst = []
+  for i in range(0, len(s), n):
+    lst.append(s[i:i+n])
+  print(lst)
 
-for i in range(1, len(s)):
-    print(lst)
-    if s[i-1] != s[i]:
-        lst.append([s[i]])
-    else:
-        lst[-1].append(s[i])
+s = input().split()
+n = int(input())
 
-print(lst)
+chunked(s, n)
