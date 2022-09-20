@@ -1,11 +1,17 @@
-def make_sublist(s):
-  lst = [[]]
-  for n in range(1, len(s) + 1):
-    for i in range(0, len(s) + 1 - n):
-      lst.append(s[i:i + n])
-  print(lst)
+n = int(input())
+m = int(input())
+matrix = []
+for i in range(n):
+    temp = [input() for _ in range(m)]
+    matrix.append(temp)
 
+for j in range(len(matrix)):
+    print(*matrix[j])
+print()
+matrix = []
+for i in range(m):
+    temp = [input() for _ in range(n)]
+    matrix.append(temp)
 
-s = '1 2 3 0'.split()
-
-make_sublist(s)
+for j in range(len(matrix)):
+    print(*matrix[j])
