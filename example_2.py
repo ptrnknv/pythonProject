@@ -1,10 +1,10 @@
-n = int(input())
-count = 0
+n = 4
+m = 6
+matrix = []
 
-for i in range(n):
-    s = input().split()
-    avg = int(sum(s)) / len(s)
-    if avg > s[i]:
-        count += 1
-
-print(count)
+for i in range(1, m + 1):
+    matrix.append([i * j for j in range(n)])
+for j in range(n):
+    for k in range(m):
+        print(str(matrix[k][j]).ljust(3), end='')
+    print()
