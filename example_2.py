@@ -1,15 +1,11 @@
-n = 4
-m = 6
-matrix = []
-mx = -100
+n = int(input())
+matrix = [input().split() for _ in range(n)]
+
 for i in range(n):
-    matrix.append([int(j) for j in '1 2 3 4 5'.split()])
-print(matrix)
-for j in range(n):
-    for k in range(m):
-        print(matrix[j][k])
-        if mx < matrix[j][k]:
-            pass
-            # mx = f'{k} {j}'
-print()
-print(matrix)
+    for j in range(n):
+        if i == j:
+            matrix[i][j], matrix[n - 1 - j][i] = matrix[n - 1 - j][i], matrix[i][j]
+
+for k in range(n):
+    print(*matrix[k], end='')
+    print()
