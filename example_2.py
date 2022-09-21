@@ -1,10 +1,15 @@
 n = 4
 m = 6
 matrix = []
-
-for i in range(1, m + 1):
-    matrix.append([i * j for j in range(n)])
+mx = -100
+for i in range(n):
+    matrix.append([int(j) for j in '1 2 3 4 5'.split()])
+print(matrix)
 for j in range(n):
     for k in range(m):
-        print(str(matrix[k][j]).ljust(3), end='')
-    print()
+        print(matrix[j][k])
+        if mx < matrix[j][k]:
+            pass
+            # mx = f'{k} {j}'
+print()
+print(matrix)
