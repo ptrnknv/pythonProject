@@ -1,18 +1,10 @@
-def print_matrix(matrix, n, width=1):
-  for r in range(n):
-    for c in range(n):
-      print(str(matrix[r][c]).ljust(width), end=' ')
-    print()
+n = int(input())
+count = 0
 
+for i in range(n):
+    s = input().split()
+    avg = int(sum(s)) / len(s)
+    if avg > s[i]:
+        count += 1
 
-n = 3
-matrix = []
-c = 1
-for r in range(1, n + 1):
-  row = []
-  for i in range(c, c + n):
-    row.append(i)
-    c = i + 1
-  matrix.append(row)
-
-print_matrix(matrix, n)
+print(count)
