@@ -1,21 +1,32 @@
-xy = 'f3'
-y = '87654321'.index(xy[1])
-x = 'abcdefgh'.index(xy[0])
-matrix = []
-for i in range(8):
-    for j in range(8):
-        point = '.'
-        matrix.append([point] * 8)
 
-for i in range(8):
-    for j in range(8):
-        if i == y and j == x:
-            matrix[i][j] = 'N'
-        inx = (x - j) * (y - i)
-        if inx == 2 or inx == -2:
-            matrix[i][j] = '*'
+n = int(input())
 
+matrix = [input().split() for i in range(n)]
+has = []
+samp = []
+flag = False
 
-for k in range(8):
-    print(*matrix[k], end='')
-    print()
+for i in range(n):
+    c, r, m, s = 0, 0, 0, 0
+    lastC = c
+    lastR = r
+    for j in range(n):
+        c += int(matrix[j][i])
+        r += int(matrix[i][j])
+        m += int(matrix[i][j])
+        s += int(matrix[i][n - j - 1])
+        has.append(int(matrix[i][j]))
+
+    if c == r and m == s and r == m and c == s:
+        flag = True
+    else:
+        flag = False
+        break
+
+for i in range(min(has), n ** 2 + 1):
+    samp.append(i)
+has.sort()
+if has == samp and flag:
+    print('YES')
+else:
+    print('NO')
