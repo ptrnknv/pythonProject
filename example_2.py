@@ -1,13 +1,15 @@
-n, m = [int(i) for i in input().split()]
-board1 = [input().split() for _ in range(n)]
-board2 = [input().split() for _ in range(n)]
-total = board = [['0'] * m for _ in range(n)]
+lst = [i for i in 'a b c d e f g h i j k l m n'.split()]
+n = 3
+res = []
+temp = []
+shift = 0
 
-for i in range(n):
-    for j in range(m):
-        total[i][j] = int(board1[i][j]) + int(board2[i][j])
+for i in range(shift, n):
+    for j in range(i, len(lst), n):
+        temp.append(lst[j])
+        shift += 1
 
-for row in total:
-    for col in row:
-        print(str(col), end=' ')
-    print()
+    res.append(temp)
+    temp = []
+
+print(res)
