@@ -1,15 +1,21 @@
-lst = [i for i in 'a b c d e f g h i j k l m n'.split()]
-n = 3
-res = []
-temp = []
-shift = 0
+n = int(input())
+board = [input().split() for _ in range(n)]
+matrix = [[int(x) for x in input().split()] for i in range(n)]
+res = [['0'] * n for _ in range(n)]
 
-for i in range(shift, n):
-    for j in range(i, len(lst), n):
-        temp.append(lst[j])
-        shift += 1
+for i in range(n):
+    for j in range(n):
+        res[i][j] = board[j][i]
 
-    res.append(temp)
-    temp = []
+for row in res:
+    for col in row:
+        print(str(col), end=' ')
+    print()
 
-print(res)
+for i in range(8):
+    for j in range(8):
+        if i == y and j == x:
+            matrix[i][j] = 'N'
+        inx = (x - j) * (y - i)
+        if inx == 2 or inx == -2:
+            matrix[i][j] = '*'
