@@ -1,14 +1,13 @@
-n = 3
-m = 4
-board = [['0'] * m for _ in range(n)]
-last = 0
+n, m = [int(i) for i in input().split()]
+board1 = [input().split() for _ in range(n)]
+board2 = [input().split() for _ in range(n)]
+total = board = [['0'] * m for _ in range(n)]
 
 for i in range(n):
-    for j in range(1, m + 1):
-        last += 1
-        board[i][j-1] = last
+    for j in range(m):
+        total[i][j] = int(board1[i][j]) + int(board2[i][j])
 
-for row in board:
+for row in total:
     for col in row:
-        print(str(col).ljust(3), end='')
+        print(str(col), end=' ')
     print()
