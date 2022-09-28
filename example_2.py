@@ -1,21 +1,14 @@
-n = int(input())
-board = [input().split() for _ in range(n)]
-matrix = [[int(x) for x in input().split()] for i in range(n)]
-res = [['0'] * n for _ in range(n)]
+poets = [
+    ('Есенин', 13),
+    ('Тургенев', 14),
+    ('Маяковский', 28),
+    ('Лермонтов', 20),
+    ('Фет', 15)]
 
-for i in range(n):
-    for j in range(n):
-        res[i][j] = board[j][i]
+for i in range(len(poets)):
+    for j in range(i+1, len(poets)):
+        if poets[i][1] > poets[j][1]:
+            poets[i], poets[j] = poets[j], poets[i]
 
-for row in res:
-    for col in row:
-        print(str(col), end=' ')
-    print()
-
-for i in range(8):
-    for j in range(8):
-        if i == y and j == x:
-            matrix[i][j] = 'N'
-        inx = (x - j) * (y - i)
-        if inx == 2 or inx == -2:
-            matrix[i][j] = '*'
+print(poets[0])
+print(poets[-1])
