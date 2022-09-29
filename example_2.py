@@ -1,14 +1,7 @@
-poets = [
-    ('Есенин', 13),
-    ('Тургенев', 14),
-    ('Маяковский', 28),
-    ('Лермонтов', 20),
-    ('Фет', 15)]
+n = 6
+f1, f2, f3 = 1, 1, 1
 
-for i in range(len(poets)):
-    for j in range(i+1, len(poets)):
-        if poets[i][1] > poets[j][1]:
-            poets[i], poets[j] = poets[j], poets[i]
+for i in range(n):
+    print(f1)
+    f1, f2, f3 = f2, f3, f1 + f2 + f3
 
-print(poets[0])
-print(poets[-1])
