@@ -1,22 +1,17 @@
-pets = [('Hatiko', 'Parker', 'Wilson', 50),
-        ('Rusty', 'Josh', 'King', 25),
-        ('Fido', 'John', 'Smith', 28),
-        ('Butch', 'Jake', 'Smirnoff', 18),
-        ('Odi', 'Emma', 'Wright', 18),
-        ('Balto', 'Josh', 'King', 25),
-        ('Barry', 'Josh', 'King', 25),
-        ('Snape', 'Hannah', 'Taylor', 40),
-        ('Horry', 'Martha', 'Robinson', 73),
-        ('Giro', 'Alex', 'Martinez', 65),
-        ('Zooma', 'Simon', 'Nevel', 32),
-        ('Lassie', 'Josh', 'King', 25),
-        ('Chase', 'Martha', 'Robinson', 73),
-        ('Ace', 'Martha', 'Williams', 38),
-        ('Rocky', 'Simon', 'Nevel', 32)]
+s = 'home sweet Home sweet.'.split()
+s = [el.lower().strip('.,!?:;-') for el in s]
+total = {}
 
-result = {}
+for i in range(len(s)):
+    total[s[i]] = total.get(s[i], 0) + 1
 
-for pet in pets:
-    result.setdefault(pet[1:], []).append(pet[0])
+res = {}
 
-print(result)
+for el in total.items():
+    #print(el)
+    if el[1] == min(total.values()):
+        res[el[0]] = el[1]
+
+print(sorted(res)[0])
+
+
