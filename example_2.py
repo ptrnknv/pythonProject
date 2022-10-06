@@ -1,17 +1,11 @@
-s = 'home sweet Home sweet.'.split()
-s = [el.lower().strip('.,!?:;-') for el in s]
-total = {}
+s = 'name age x x2 j k l name x y k j e a x name number'.split()
+result = {}
 
 for i in range(len(s)):
-    total[s[i]] = total.get(s[i], 0) + 1
+    result[i] = result.get(s[i], s[i]) + f'_{s[:i].count(s[i])}'
+for el in result.items():
+    if '_0' in el[1]:
+        result[el[0]] = el[1][:-2]
 
-res = {}
-
-for el in total.items():
-    #print(el)
-    if el[1] == min(total.values()):
-        res[el[0]] = el[1]
-
-print(sorted(res)[0])
-
+print(*result.values())
 
