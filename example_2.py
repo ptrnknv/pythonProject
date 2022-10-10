@@ -1,11 +1,13 @@
-s = 'name age x x2 j k l name x y k j e a x name number'.split()
-result = {}
+emails = {'nosu.edu': ['timyr', 'joseph', 'svetlana.gaeva', 'larisa.mamuk'],
+          'gmail.com': ['ruslan.chaika', 'rustam.mini', 'stepik-best'],
+          'msu.edu': ['apple.fruit', 'beegeek', 'beegeek.school'],
+          'yandex.ru': ['surface', 'google'],
+          'hse.edu': ['tomas-henders', 'cream.soda', 'zivert'],
+          'mail.ru': ['angel.down', 'joanne', 'the.fame.moster']}
 
-for i in range(len(s)):
-    result[i] = result.get(s[i], s[i]) + f'_{s[:i].count(s[i])}'
-for el in result.items():
-    if '_0' in el[1]:
-        result[el[0]] = el[1][:-2]
+email = []
+for k, v in emails.items():
+    for i in range(len(v)):
+        email.append(f'{v[i]}@{k}')
 
-print(*result.values())
-
+print(*sorted(email), sep='\n')
