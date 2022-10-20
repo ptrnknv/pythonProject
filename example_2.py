@@ -1,13 +1,19 @@
-emails = {'nosu.edu': ['timyr', 'joseph', 'svetlana.gaeva', 'larisa.mamuk'],
-          'gmail.com': ['ruslan.chaika', 'rustam.mini', 'stepik-best'],
-          'msu.edu': ['apple.fruit', 'beegeek', 'beegeek.school'],
-          'yandex.ru': ['surface', 'google'],
-          'hse.edu': ['tomas-henders', 'cream.soda', 'zivert'],
-          'mail.ru': ['angel.down', 'joanne', 'the.fame.moster']}
+def func_apply(func, items):
+    res = []
+    for item in items:
+        res.append(func(item))
+    return res
 
-email = []
-for k, v in emails.items():
-    for i in range(len(v)):
-        email.append(f'{v[i]}@{k}')
 
-print(*sorted(email), sep='\n')
+def add3(x):
+    return x + 3
+
+
+def mul7(x):
+    return x * 7
+
+
+print(func_apply(mul7, [1, 2, 3, 4, 5, 6]))
+print(func_apply(add3, [1, 2, 3, 4, 5, 6]))
+print(func_apply(str, [1, 2, 3, 4, 5, 6]))
+
