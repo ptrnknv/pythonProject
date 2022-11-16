@@ -1,15 +1,42 @@
 from datetime import datetime
 
 
-def fill_up_missing_dates(dates: list[str]) -> list[str]:
-    ls = [datetime.strptime(date, '%d.%m.%Y').toordinal() for date in dates]
-    return sorted([datetime.fromordinal(el).strftime('%d.%m.%Y') for el in range(min(ls), max(ls) + 1)])
+def choose_plural(amount, declensions):
+    last_dig = amount % 10
+    last_two = amount % 100
+    if 4 < last_two < 21:
+        return f'{amount} {declensions[2]}'
+    elif 5 > last_dig > 1:
+        return f'{amount} {declensions[1]}'
+    elif last_dig == 1:
+        return f'{amount} {declensions[0]}'
+
+    return f'{amount} {declensions[2]}'
 
 
-dates = ['01.11.2021', '07.11.2021', '04.11.2021', '03.11.2021']
+def hours_minutes(td):
+    return td.seconds // 3600, (td.seconds // 60) % 60
 
-print(fill_up_missing_dates(dates))
 
-dates = ['01.11.2021', '04.11.2021', '09.11.2021', '15.11.2021']
-
-print(fill_up_missing_dates(dates))
+pattern = '%d.%m.%Y %H:%M'
+release = datetime.strptime('08.11.2022 12:00', pattern)
+inp = datetime.strptime(input(), pattern)
+res = release - inp
+hours, minutes = hours_minutes(res)
+declensions =  {0: ("день", "дня", "дней"), 1: ("час", "часа", "часов"), 2: ("минута", "минуты", "минут")}
+if hours == 0:
+    print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])}')
+elif res.days == 0:
+    if minutes == 0:
+        print(f'До выхода курса осталось: {choose_plural(hours, declensions[1])}')
+    elif hours == 0:
+        print(f'До выхода курса осталось: {choose_plural(minutes, declensions[2])}')
+    else:
+        print(f'До выхода курса осталось: {choose_plural(hours, declensions[1])} и {choose_plural(minutes, declensions[2])}')
+elif inp > release:
+    print('Курс уже вышел!')
+else:
+    if hours == 0:
+        print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])}')
+    else:
+        print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])} и {choose_plural(hours, declensions[1])}')
