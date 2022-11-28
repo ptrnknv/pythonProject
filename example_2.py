@@ -1,42 +1,23 @@
-from datetime import datetime
+import csv
 
 
-def choose_plural(amount, declensions):
-    last_dig = amount % 10
-    last_two = amount % 100
-    if 4 < last_two < 21:
-        return f'{amount} {declensions[2]}'
-    elif 5 > last_dig > 1:
-        return f'{amount} {declensions[1]}'
-    elif last_dig == 1:
-        return f'{amount} {declensions[0]}'
+def condense_csv(file_name, id_name):
+    dt = {}
+    with open(file_name, 'r', encoding='utf-8') as file:
+        for line in csv.reader(file):
+            dt[line[0]] = dt.get(line[0], []) + [[line[1], line[2]]]
+    ls = []
+    for el in dt.items():
+        temp = {id_name: el[0]}
+        for data in el[1]:
+            temp[data[0]] = data[1]
+        ls.append(temp)
 
-    return f'{amount} {declensions[2]}'
+    with open('condensed.csv', 'w', encoding='utf-8') as file:
+        columns = ls[0].keys()
+        writer = csv.DictWriter(file, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(ls)
 
 
-def hours_minutes(td):
-    return td.seconds // 3600, (td.seconds // 60) % 60
-
-
-pattern = '%d.%m.%Y %H:%M'
-release = datetime.strptime('08.11.2022 12:00', pattern)
-inp = datetime.strptime(input(), pattern)
-res = release - inp
-hours, minutes = hours_minutes(res)
-declensions =  {0: ("день", "дня", "дней"), 1: ("час", "часа", "часов"), 2: ("минута", "минуты", "минут")}
-if hours == 0:
-    print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])}')
-elif res.days == 0:
-    if minutes == 0:
-        print(f'До выхода курса осталось: {choose_plural(hours, declensions[1])}')
-    elif hours == 0:
-        print(f'До выхода курса осталось: {choose_plural(minutes, declensions[2])}')
-    else:
-        print(f'До выхода курса осталось: {choose_plural(hours, declensions[1])} и {choose_plural(minutes, declensions[2])}')
-elif inp > release:
-    print('Курс уже вышел!')
-else:
-    if hours == 0:
-        print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])}')
-    else:
-        print(f'До выхода курса осталось: {choose_plural(res.days, declensions[0])} и {choose_plural(hours, declensions[1])}')
+condense_csv('data.csv', id_name='ID')
