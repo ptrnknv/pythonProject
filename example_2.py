@@ -1,8 +1,44 @@
-import csv
+import json
 
-with open('prices.csv', encoding='UTF-8') as f:
-    h, *rows = csv.reader(f, delimiter=';')
-goods = [(r[0], h[x], r[x]) for r in rows for x in range(1, len(h))]
-cheapest = min(goods, key=lambda x: (int(x[2]), x[1], x[0]))
 
-print(f'{cheapest[1]}: {cheapest[0]}')
+def is_correct_json(string: str):
+    try:
+        json.loads(string)
+        return True
+    except:
+        return False
+
+
+data = '{"name": "Barsik", "age": 7, "meal": "Wiskas"}'
+
+print(is_correct_json(data))
+print(is_correct_json('number = 17'))
+data = '''{
+        "beegeek": 2018,
+        "stepik": 2013
+       }'''
+
+print(is_correct_json(data))
+data = '''{
+        "beegeek": 2018,
+        ("Timur", "Guev"): 29,
+        ("Artur", "Harisov"): 20,
+        "stepik": 2013
+       }'''
+
+print(is_correct_json(data))
+print(is_correct_json('99999'))
+data = '''{
+        'beegeek': 2018,
+        ('Timur', 'Guev'): 29,
+        ('Artur', 'Harisov'): 20,
+        'stepik': 2013
+       }'''
+
+print(is_correct_json(data))
+data = '''{
+        'beegeek': 2018,
+        'stepik': 2013
+       }'''
+
+print(is_correct_json(data))
