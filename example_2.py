@@ -1,16 +1,8 @@
 import csv
 
+with open('prices.csv', encoding='UTF-8') as f:
+    h, *rows = csv.reader(f, delimiter=';')
+goods = [(r[0], h[x], r[x]) for r in rows for x in range(1, len(h))]
+cheapest = min(goods, key=lambda x: (int(x[2]), x[1], x[0]))
 
-def key_func(grade):
-    num, letter = grade.split('-')
-    return int(num), letter
-
-
-with open('student_counts.csv', 'r', encoding='utf-8') as file:
-    reader = csv.DictReader(file)
-    columns = ['year'] + sorted(reader.fieldnames[1:], key=key_func)
-    rows = list(reader)
-with open('sorted_student_counts.csv', 'w') as file:
-    writer = csv.DictWriter(file, fieldnames=columns)
-    writer.writeheader()
-    writer.writerows(rows)
+print(f'{cheapest[1]}: {cheapest[0]}')
