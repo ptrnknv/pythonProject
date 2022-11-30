@@ -2,12 +2,10 @@ import json
 
 
 with open('food_services.json', 'r', encoding='utf8') as file:
-    catering, biggest = {}, {}
+    type_of_catering = {}
     for line in json.load(file):
-        catering[line['District']] = catering.get(line['District'], 0) + 1
-        biggest[line['OperatingCompany']] = biggest.get(line['OperatingCompany'], 0) + 1
-catering_max = max(catering, key=lambda x: catering[x])
-biggest_max = max(biggest, key=lambda x: biggest[x] if x != '' else 0)
-print(f'{catering_max}: {catering[catering_max]}')
-print(f'{biggest_max}: {biggest[biggest_max]}')
+        type_of_catering[line['TypeObject']] = type_of_catering.get(line['TypeObject'], []) + [(line['Name'], line['SeatsCount'])]
 
+for catering in sorted(type_of_catering):
+    mx = max(type_of_catering[catering], key=lambda x: x[1])
+    print(f'{catering}: {mx[0]}, {mx[1]}')
