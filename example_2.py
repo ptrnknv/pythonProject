@@ -1,11 +1,15 @@
 import csv
 import json
+from datetime import datetime
 
 
-with open('playgrounds.csv', 'r', encoding='utf8') as file, open('addresses.json', 'w', encoding='utf8') as outer:
-    res = {}
-    for line in csv.DictReader(file, delimiter=';'):
-        res[line['AdmArea']] = res.get(line['AdmArea'], {})
-        res[line['AdmArea']][line['District']] = res[line['AdmArea']].get(line['District'], []) + [line['Address']]
-    print(json.dumps(res, indent='   ', ensure_ascii=False))
+with open('exam_results.csv', 'r', encoding='utf8') as file, open('best_scores.json', 'w', encoding='utf8') as outer:
+    temp = {}
+    for student in sorted(csv.DictReader(file), key=lambda x: (int(x['score']), datetime.strptime(x['date_and_time'], '%Y-%m-%d %H:%M:%S')), reverse=True):
+        temp[student['email']] = temp.get(student['email'], student)
+    res = []
+    for el in sorted(temp):
+        temp[el]['best_score'] = int(temp[el].pop('score'))
+        res.append(temp[el])
+    json.dump(res, outer, indent='   ')
 
