@@ -1,11 +1,11 @@
-import json
+from zipfile import ZipFile
+from functools import reduce
 
 
-with open('food_services.json', 'r', encoding='utf8') as file:
-    type_of_catering = {}
-    for line in json.load(file):
-        type_of_catering[line['TypeObject']] = type_of_catering.get(line['TypeObject'], []) + [(line['Name'], line['SeatsCount'])]
+with ZipFile('workbook.zip') as zip_file:
+    info = zip_file.infolist()
+    total_size = reduce(lambda acc, x: acc + x.file_size, info, 0)
+    total_size_compressed = reduce(lambda acc, x: acc + x.compress_size, info, 0)
+    print(f'Объем исходных файлов: {total_size} байт(а)')
+    print(f'Объем сжатых файлов: {total_size_compressed} байт(а)')
 
-for catering in sorted(type_of_catering):
-    mx = max(type_of_catering[catering], key=lambda x: x[1])
-    print(f'{catering}: {mx[0]}, {mx[1]}')
