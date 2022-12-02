@@ -1,9 +1,22 @@
 from zipfile import ZipFile
-from datetime import datetime
+import json
 
 
-with ZipFile('workbook.zip') as zip_file:
-     print(*sorted(map(lambda x: x.filename.split('/')[1] if len(x.filename.split('/')) > 1 else x.filename, filter(
-            lambda x: datetime(2021, 11, 30, 14, 22, 0) < datetime(*x.date_time) and not x.is_dir(), zip_file.infolist()))),
-           sep='\n')
+def is_correct_json(string: str):
+    try:
+        json.loads(string)
+        return True
+    except:
+        return False
 
+
+with ZipFile('data.zip', 'r') as zip_file:
+    arsenal = []
+    for info in zip_file.infolist():
+        with zip_file.open(info.filename, 'r') as file:
+            reader = file.read().decode('utf-8', errors='ignore')
+            if is_correct_json(reader):
+                reader = json.loads(reader)
+                if reader['team'] == 'Arsenal':
+                    arsenal.append((reader['first_name'], reader['last_name']))
+print(*sorted([name + ' ' + last for name, last in arsenal]), sep='\n')
