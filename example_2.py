@@ -1,22 +1,21 @@
 from zipfile import ZipFile
-import json
 
 
-def is_correct_json(string: str):
-    try:
-        json.loads(string)
-        return True
-    except:
-        return False
+def convert_bytes(size):
+    """Конвертер байт в большие единицы"""
+    if size < 1000:
+        return f'{size} B'
+    elif 1000 <= size < 1000000:
+        return f'{round(size / 1024)} KB'
+    elif 1000000 <= size < 1000000000:
+        return f'{round(size / 1048576)} MB'
+    else:
+        return f'{round(size / 1073741824)} GB'
 
 
-with ZipFile('data.zip', 'r') as zip_file:
-    arsenal = []
+with ZipFile('desktop.zip', 'r') as zip_file:
     for info in zip_file.infolist():
-        with zip_file.open(info.filename, 'r') as file:
-            reader = file.read().decode('utf-8', errors='ignore')
-            if is_correct_json(reader):
-                reader = json.loads(reader)
-                if reader['team'] == 'Arsenal':
-                    arsenal.append((reader['first_name'], reader['last_name']))
-print(*sorted([name + ' ' + last for name, last in arsenal]), sep='\n')
+        crumbs = info.filename.rstrip('/').split('/')
+        size = info.file_size
+        unit = convert_bytes(size)
+        print(f"{'  ' * (len(crumbs)-1)}{crumbs[-1]}{' ' + unit if int(unit.split()[0]) > 0 else ''}")
