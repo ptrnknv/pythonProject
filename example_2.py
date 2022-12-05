@@ -1,15 +1,17 @@
-import dill as pickle
-from sys import stdin
+import pickle
 
 
-def func(*args):
-    return ' '.join(args)
+def filter_dump(filename, objects, typename):
+    with open(filename, 'wb') as file:
+        res = []
+        for el in objects:
+            if type(el) == typename:
+                res.append(el)
+        pickle.dump(res, file)
 
 
-with open('func.pkl', 'wb') as w_file:
-    pickle.dump(func, w_file)
+filter_dump('numbers.pkl', [1, '2', 3, 4, '5'], int)
 
-func_name, *args = [el.strip() for el in stdin.readlines()]
-with open(func_name, 'rb') as file:
-    data = pickle.load(file)
-    print(data(*args))
+
+with open('numbers.pkl', 'rb') as reader:
+    print(pickle.load(reader))
