@@ -1,21 +1,15 @@
-from zipfile import ZipFile
+import pickle
+from sys import stdin
 
 
-def convert_bytes(size):
-    """Конвертер байт в большие единицы"""
-    if size < 1000:
-        return f'{size} B'
-    elif 1000 <= size < 1000000:
-        return f'{round(size / 1024)} KB'
-    elif 1000000 <= size < 1000000000:
-        return f'{round(size / 1048576)} MB'
-    else:
-        return f'{round(size / 1073741824)} GB'
+def func(*args):
+    return ' '.join(args)
 
 
-with ZipFile('desktop.zip', 'r') as zip_file:
-    for info in zip_file.infolist():
-        crumbs = info.filename.rstrip('/').split('/')
-        size = info.file_size
-        unit = convert_bytes(size)
-        print(f"{'  ' * (len(crumbs)-1)}{crumbs[-1]}{' ' + unit if int(unit.split()[0]) > 0 else ''}")
+with open('func.pkl', 'wb') as w_file:
+    pickle.dump(func, w_file)
+
+func_name, *args = [el.strip() for el in stdin.readlines()]
+with open(func_name, 'rb') as file:
+    data = pickle.load(file)
+    print(data(*args))
