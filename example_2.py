@@ -1,17 +1,7 @@
-import pickle
+import string
 
 
-def filter_dump(filename, objects, typename):
-    with open(filename, 'wb') as file:
-        res = []
-        for el in objects:
-            if type(el) == typename:
-                res.append(el)
-        pickle.dump(res, file)
-
-
-filter_dump('numbers.pkl', [1, '2', 3, 4, '5'], int)
-
-
-with open('numbers.pkl', 'rb') as reader:
-    print(pickle.load(reader))
+eng_alpha = string.ascii_lowercase
+given_alpha = input()
+st = input()
+print(st.lower().translate(st.maketrans(eng_alpha, given_alpha)))
