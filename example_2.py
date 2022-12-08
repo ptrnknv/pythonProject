@@ -1,25 +1,11 @@
+import csv
 from collections import namedtuple
+from datetime import datetime
 
-User = namedtuple('User', ['name', 'surname', 'email', 'plan'])
-
-users = [User('Mary', 'Griffin', 'sonnen@yahoo.com', 'Basic'),
-         User('Brenda', 'Young', 'retoh@outlook.com', 'Silver'),
-         User('Kathleen', 'Lyons', 'balchen@att.net', 'Gold'),
-         User('Pamela', 'Hicks', 'corrada@sbcglobal.net', 'Silver'),
-         User('William', 'Townsend', 'kosact@verizon.net', 'Gold'),
-         User('Clayton', 'Morris', 'berserk@yahoo.com', 'Silver'),
-         User('Dorothy', 'Dennis', 'sequin@live.com', 'Gold'),
-         User('Tyler', 'Walker', 'noahb@comcast.net', 'Basic'),
-         User('Joseph', 'Moore', 'ylchang@sbcglobal.net', 'Silver'),
-         User('Kenneth', 'Richardson', 'tbusch@me.com', 'Bronze'),
-         User('Stephanie', 'Bush', 'neuffer@live.com', 'Gold'),
-         User('Gregory', 'Hughes', 'juliano@att.net', 'Basic'),
-         User('Tracy', 'Wallace', 'sblack@me.com', 'Silver'),
-         User('Russell', 'Smith', 'isaacson@comcast.net', 'Bronze'),
-         User('Megan', 'Patterson', 'hoangle@outlook.com', 'Basic')]
-
-for user in sorted(users, key=lambda x: (('Gold', 'Silver', 'Bronze', 'Basic').index(x[3]), x[2])):
-    print(f"""{user.name} {user.surname}
-  Email: {user.email}
-  Plan: {user.plan}""")
-    print()
+with open('meetings.csv', 'r', encoding='utf8') as file:
+    guests = sorted(csv.DictReader(file), key=lambda x: (datetime.strptime(x['meeting_date'], '%d.%m.%Y'),
+                                                         datetime.strptime(x['meeting_time'], '%H:%M')))
+    for guest in guests:
+        Guest = namedtuple('Guest', ['surname', 'name'])
+        temp = Guest(guest['surname'], guest['name'])
+        print(*temp)
