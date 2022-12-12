@@ -1,11 +1,13 @@
-from collections import defaultdict
+from collections import Counter
 
-data = [('Books', 1343), ('Books', 1166), ('Merch', 616), ('Courses', 966), ('Merch', 1145), ('Courses', 1061), ('Books', 848), ('Courses', 964), ('Tutorials', 832), ('Merch', 642), ('Books', 815), ('Tutorials', 1041), ('Books', 1218), ('Tutorials', 880), ('Books', 1003), ('Merch', 951), ('Books', 920), ('Merch', 729), ('Tutorials', 977), ('Books', 656)]
+data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
 
-total = defaultdict(int)
+data.min_values = lambda: list(filter(lambda y: y[1] == data[min(data, key=lambda x: data[x])], data.items()))
+data.max_values = lambda: list(filter(lambda y: y[1] == data[max(data, key=lambda x: data[x])], data.items()))
 
-for item, cost in sorted(data):
-    total[item] += cost
+data.clear()
 
-for k, v in total.items():
-    print(k, ': $', v, sep='')
+data['a'] = 1
+
+print(data.max_values())
+print(data.min_values())
