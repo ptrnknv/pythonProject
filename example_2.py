@@ -1,13 +1,12 @@
 from collections import Counter
 
-data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
 
-data.min_values = lambda: list(filter(lambda y: y[1] == data[min(data, key=lambda x: data[x])], data.items()))
-data.max_values = lambda: list(filter(lambda y: y[1] == data[max(data, key=lambda x: data[x])], data.items()))
+def print_bar_chart(data, mark):
+    counter = Counter(data).most_common()
+    for k, v in counter:
+        print(f'{k.ljust(len(max(data, key=len)))} |{mark * v}')
 
-data.clear()
 
-data['a'] = 1
+my_list = ['арбуз', 'черешня', 'клубника', 'арбуз', 'банан', 'Малина', 'малина', 'арбуз', 'арбуз', 'Клубника', 'Банан', 'Малина', 'Черешня', 'Вишня', 'Малина', 'малина', 'Малина', 'Клубника', 'Вишня', 'Клубника']
 
-print(data.max_values())
-print(data.min_values())
+print_bar_chart(my_list, '@')
