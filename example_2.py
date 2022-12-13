@@ -1,12 +1,16 @@
 from collections import Counter
+import csv
+import json
 
+total = Counter()
+for i in '1234':
+    with open(f'quarter{i}.csv', 'r', encoding='utf8') as file:
+        _, *reader = csv.reader(file)
+    for product, *amount in reader:
+        total.update({product: sum(map(int, amount))})
+result = 0
+with open('prices.json', 'r', encoding='utf8') as file:
+    for k, v in json.load(file).items():
+        result += total[k] * v
 
-def print_bar_chart(data, mark):
-    counter = Counter(data).most_common()
-    for k, v in counter:
-        print(f'{k.ljust(len(max(data, key=len)))} |{mark * v}')
-
-
-my_list = ['арбуз', 'черешня', 'клубника', 'арбуз', 'банан', 'Малина', 'малина', 'арбуз', 'арбуз', 'Клубника', 'Банан', 'Малина', 'Черешня', 'Вишня', 'Малина', 'малина', 'Малина', 'Клубника', 'Вишня', 'Клубника']
-
-print_bar_chart(my_list, '@')
+print(result)
