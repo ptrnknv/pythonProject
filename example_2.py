@@ -1,16 +1,20 @@
-from collections import Counter
-import csv
-import json
+from collections import ChainMap, Counter
 
-total = Counter()
-for i in '1234':
-    with open(f'quarter{i}.csv', 'r', encoding='utf8') as file:
-        _, *reader = csv.reader(file)
-    for product, *amount in reader:
-        total.update({product: sum(map(int, amount))})
-result = 0
-with open('prices.json', 'r', encoding='utf8') as file:
-    for k, v in json.load(file).items():
-        result += total[k] * v
+bread = {'булочка с кунжутом': 15, 'обычная булочка': 10, 'ржаная булочка': 15}
+meat = {'куриный бифштекс': 50, 'говяжий бифштекс': 70, 'рыбный бифштекс': 40}
+sauce = {'сливочно-чесночный': 15, 'кетчуп': 10, 'горчица': 10, 'барбекю': 15, 'чили': 15}
+vegetables = {'лук': 10, 'салат': 15, 'помидор': 15, 'огурцы': 10}
+toppings = {'сыр': 25, 'яйцо': 15, 'бекон': 30}
 
-print(result)
+ingredients = ChainMap(bread, meat, sauce, vegetables, toppings)
+order = Counter(input().split(','))
+max_len = []
+total = 0
+for ingredient, amount in sorted(order.items()):
+    ingredient_string = f'{ingredient.ljust(len(max(order, key=len)))} x {amount}'
+    print(ingredient_string)
+    max_len.append(len(ingredient_string))
+    total += ingredients[ingredient] * amount
+total_string = f'ИТОГ: {total}р'
+max_len.append(len(total_string))
+print(''.ljust(max(max_len), '-'), total_string, sep='\n')
