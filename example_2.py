@@ -1,25 +1,19 @@
-from calendar import day_name
-import locale
-locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
-days = {i: d for i, d in enumerate(map(str.title, day_name), 1)}
+import time
+
+start_time = time.perf_counter()
+def tribonacci(num):
+    cache = {1: 1, 2: 1, 3: 1}
+    def rec_trib(num):
+        result = cache.get(num)
+        if result is None:
+            result = rec_trib(num - 1) + rec_trib(num - 2) + rec_trib(num - 3)
+            cache[num] = result
+
+        print(cache)
+        return result
+    return rec_trib(num)
 
 
-def get_weekday(number):
-    try:
-        if type(number) != int:
-            raise TypeError('Аргумент не является целым числом')
-        elif number not in range(1, 8):
-            raise ValueError('Аргумент не принадлежит требуемому диапазону')
-        else:
-            return days[number]
-    except TypeError as errT:
-        raise errT
-    except ValueError as errV:
-        raise errV
+print(tribonacci(30))
 
 
-try:
-    print(get_weekday(8))
-except ValueError as err:
-    print(err)
-    print(type(err))
