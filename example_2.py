@@ -1,14 +1,15 @@
+def get_value(dt, key):
+    if key in dt:
+        return dt[key]
+    for k, v in dt.items():
+        if isinstance(v, dict):
+            value = get_value(v, key)
+            if value is not None:
+                return value
 
-def linear(ls):
-    result = []
-    for elem in ls:
-        if isinstance(elem, list):
-            result += linear(elem)
-        else:
-            result.append(elem)
-    return result
 
 
-my_list = [3, [4], [5, [6, [7, 8]]]]
 
-print(linear(my_list))
+data = {'firstName': 'Тимур', 'lastName': 'Гуев', 'birthDate': {'day': 10, 'month': 'October', 'year': 1993}, 'address': {'streetAddress': 'Часовая 25, кв. 127', 'city': {'region': 'Московская область', 'type': 'город', 'cityName': 'Москва'}, 'postalCode': '125315'}}
+
+print(get_value(data, 'cityName'))
