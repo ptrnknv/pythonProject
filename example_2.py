@@ -1,17 +1,14 @@
-def recursive_sum(ls):
-    if isinstance(ls, int):
-        return ls  # базовый случай
-    if isinstance(ls, list):
-        total = 0
-        for i in ls:
-            value = recursive_sum(i)
-            if value is not None:
-                total += value
-            else:
-                total += 0
-        return total
+
+def linear(ls):
+    result = []
+    for elem in ls:
+        if isinstance(elem, list):
+            result += linear(elem)
+        else:
+            result.append(elem)
+    return result
 
 
-my_list = [1, [4, 4], 2, [1, [2, 10]]]
+my_list = [3, [4], [5, [6, [7, 8]]]]
 
-print(recursive_sum(my_list))
+print(linear(my_list))
