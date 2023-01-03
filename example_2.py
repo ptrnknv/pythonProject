@@ -1,25 +1,33 @@
-from string import ascii_lowercase as asc, digits as dg
+from functools import wraps
 
 
-def verification(login, password, success, failure):
-    dt = {
-        lambda x: x in asc or x in asc.upper(): 'в пароле нет ни одной буквы',
-        lambda x: x in asc.upper(): 'в пароле нет ни одной заглавной буквы',
-        lambda x: x in asc: 'в пароле нет ни одной строчной буквы',
-        lambda x: x in dg: 'в пароле нет ни одной цифры'
-    }
-    for f in dt:
-        if not any((f(l) for l in password)):
-            return failure(login, dt[f])
-    success(login)
+class MaxRetriesException(Exception):
+    pass
 
 
-def success(login):
-    print(f'Здравствуйте, {login}!')
+def retry(times):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for i in range(times):
+                try:
+                    return func(*args, **kwargs)
+                except:
+                    pass
+            raise MaxRetriesException
+        return wrapper
+    return decorator
 
 
-def failure(login, text):
-    print(f'{login}, попробуйте снова. Текст ошибки: {text}')
+@retry(9)
+def add(a, b):
+    add.calls = add.__dict__.get('calls', 0) + 1
+    if add.calls < 10:
+        raise ValueError
+    return a + b
 
 
-verification('Arthur_Davletov', 'мойпарольBEE123', success, failure)
+try:
+    print(add(10, 20))
+except Exception as e:
+    print(type(e))
